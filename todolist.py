@@ -60,11 +60,41 @@ def add_task():
     session.add(new_task)
     session.commit()
 
+def missed_tasks():
+    today = db.datetime.today().date()
+    tasks = session.query(db.Task).filter(db.Task.deadline < today).order_by(db.Task.deadline).all()
+    if len(tasks) == 0:
+        print('No missed tasks!')
+    else:
+        i = 1
+        for task in tasks:
+            print(str(i) + '. ', task, '. ', task.dead_line().day, ' ', task.dead_line().strftime('%b'), sep='')
+            i += 1
+    print()
+
+def delete_task():
+    tasks = session.query(db.Task).order_by(db.Task.deadline).all()
+    if len(tasks) == 0:
+        print('Nothing to delete!')
+    else:
+        i = 1
+        print('Choose the number of the task you want to delete:')
+        for task in tasks:
+            print(str(i) + '. ', task, '. ', task.dead_line().day, ' ', task.dead_line().strftime('%b'), sep='')
+            i += 1
+        task_number = int(input())
+        # task_to_be_deleted = tasks[task_number-1]
+        session.delete(tasks[task_number-1])
+        session.commit()
+
+
 while True:
     print('''1) Today's tasks
 2) Week's tasks
 3) All tasks
-4) Add task
+4) Missed tasks
+5) Add task
+6) Delete task
 0) Exit''')
     option = int(input())
     if option == 0:
@@ -76,6 +106,10 @@ while True:
         weeks_tasks()
     if option == 3:
         all_tasks()
-    if option ==4:
+    if option == 4:
+        missed_tasks()
+    if option == 5:
         add_task()
+    if option == 6:
+        delete_task()
 
