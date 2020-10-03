@@ -1,4 +1,3 @@
-# Write your code here
 # just a comment
 import db
 from sqlalchemy.orm import sessionmaker
