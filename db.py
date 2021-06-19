@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Date
 from datetime import datetime, timedelta
+
 engine = create_engine('sqlite:///todo.db?check_same_thread=False')
 
 Base = declarative_base()
