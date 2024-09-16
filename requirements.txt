@@ -3,7 +3,7 @@ appdirs==1.4.4
 blinker==1.4
 click==7.1.2
 distlib==0.3.1
-dnspython==2.0.0
+dnspython==2.6.0rc1
 email-validator==1.1.1
 filelock==3.0.12
 Flask==1.1.2
